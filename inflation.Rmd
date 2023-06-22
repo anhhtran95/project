@@ -25,7 +25,7 @@ The dataset we use stems from the [Bank of England Research datasets](https://ww
 
 I quote:
 
-> This dataset contains the individual responses to our **Inflation Attitudes Survey**, a *quarterly* survey of people’s feelings about inflation and other economic variables like the interest rate. 
+> This dataset contains the individual responses to our **Inflation Attitudes Survey**, a *quarterly* survey of people's feelings about inflation and other economic variables like the interest rate.
 
 ```{r load-inflation}
 # code chunks can come from other scripts, this one is loaded from:
@@ -37,8 +37,7 @@ I quote:
 # note that they must be empty and the names must correspond
 ```
 
-For this dataset the Bank of England asked `r prettyNum(nrow(inflation), big.mark = ".", decimal.mark = ",")` people for their opinion on the perceived and expected inflation.
-The survey has run quarterly since `r min(inflation$year)`.
+For this dataset the Bank of England asked `r prettyNum(nrow(inflation), big.mark = ".", decimal.mark = ",")` people for their opinion on the perceived and expected inflation. The survey has run quarterly since `r min(inflation$year)`.
 
 ```{r}
 inflation %>% 
@@ -50,6 +49,10 @@ inflation %>%
   ungroup() %>% 
   ggplot() +
   geom_line(aes(date, value, color = name)) +
+  theme_minimal() +
+  ylab("subjective inflation in %-points") +
+  labs(color = "") +
+  theme(legend.position = c(.1, .9)) +
   NULL
 ```
 
@@ -64,5 +67,12 @@ usethis::use_git_config(
 
 ```{r}
 usethis::use_git()
+```
+
+```{r}
+usethis::create_github_token(description = "Token for Repro Workshop 2023 Test")
+```
+```{r}
+gitcreds::gitcreds_set() # <-- Token must *not* go into brackets, paste when asked
 ```
 
